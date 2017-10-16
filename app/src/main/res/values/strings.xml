@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">NSDL Admin</string>
+    <string name="hint_email">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Fullname</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_register">REGISTER</string>
+    <string name="btn_link_to_register">Register New Door User</string>
+    <string name="btn_link_to_main">Back to Main.</string>
+    <string name="welcome">Welcome</string>
+    <string name="btn_logout">LOGOUT</string>
+    <string name="name">Fullname</string>
+    <string name="service_name">CardEmulation Sample</string>
+    <string name="card_title">Sample Loyalty Card</string>
+    <string name="account_number">Account Number</string>
+</resources>
