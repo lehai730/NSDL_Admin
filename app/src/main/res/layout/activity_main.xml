@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFA31E"
-    tools:context="${relativePackage}.${activityClass}">
+    android:background="#FFA31E">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -34,6 +33,15 @@
             android:layout_height="wrap_content"
             android:textColor="#1C69A5"
             android:textSize="13dp" />
+
+        <Button
+            android:id="@+id/btnUnlockDoor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@color/btn_logut_bg"
+            android:text="@string/btn_unlock"
+            android:textColor="#1C69A5" />
 
         <Button
             android:id="@+id/btnLinkToRegisterScreen"

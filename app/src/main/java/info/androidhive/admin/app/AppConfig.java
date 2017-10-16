@@ -6,4 +6,7 @@ public class AppConfig {
 
 	// Server user register url
 	public static String URL_REGISTER = "http://10.132.124.38/admin_login_api/register.php";
+
+	// Server user unlock url
+	public static String URL_UNLOCK = "http://10.132.124.38/admin_login_api/unlock.php";
 }

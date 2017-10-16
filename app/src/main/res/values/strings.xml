@@ -7,6 +7,7 @@
     <string name="hint_name">Fullname</string>
     <string name="btn_login">LOGIN</string>
     <string name="btn_register">REGISTER</string>
+    <string name="btn_unlock">UNLOCK DOOR</string>
     <string name="btn_link_to_register">Register New Door User</string>
     <string name="btn_link_to_main">Back to Main.</string>
     <string name="welcome">Welcome</string>
