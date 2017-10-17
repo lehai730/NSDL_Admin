@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">NSDL Admin</string>
-    <string name="hint_email">Username</string>
+    <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="hint_name">Fullname</string>
     <string name="btn_login">LOGIN</string>
@@ -16,4 +16,5 @@
     <string name="service_name">CardEmulation Sample</string>
     <string name="card_title">Sample Loyalty Card</string>
     <string name="account_number">Account Number</string>
+
 </resources>

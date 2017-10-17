@@ -80,11 +80,11 @@ public class RegisterActivity extends Activity {
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
-                if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && isValidEmail(email)) {
                     registerUser(name, email, password);
                 } else {
                     Toast.makeText(getApplicationContext(),
-                            "Please enter your details!", Toast.LENGTH_LONG)
+                            "Please enter your details correctly!", Toast.LENGTH_LONG)
                             .show();
                 }
             }
@@ -197,5 +197,13 @@ public class RegisterActivity extends Activity {
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+
+    public final static boolean isValidEmail(CharSequence target) {
+        if (target == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
     }
 }

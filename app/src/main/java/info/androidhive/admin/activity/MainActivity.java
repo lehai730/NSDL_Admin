@@ -36,6 +36,8 @@ public class MainActivity extends Activity {
 	private Button btnLogout;
 	private Button btnLinkToRegister;
 	private Button btnUnlockDoor;
+	private Button btnViewUsers;
+	private Button btnViewLogs;
 	private ProgressDialog pDialog;
 
 	public static SQLiteHandler db;
@@ -52,6 +54,28 @@ public class MainActivity extends Activity {
 		btnLogout = (Button) findViewById(R.id.btnLogout);
 		btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
 		btnUnlockDoor = (Button) findViewById(R.id.btnUnlockDoor);
+		btnViewUsers = (Button) findViewById(R.id.btnViewdoorUsers);
+		btnViewLogs = (Button) findViewById(R.id.btnViewLogs);
+
+		// view user click event
+		btnViewUsers.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				// Launching All products Activity
+				Intent i = new Intent(getApplicationContext(), ViewDoorUsers.class);
+				startActivity(i);
+
+			}
+		});
+		// Link to View Logs
+		btnViewLogs.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View view) {
+				Intent i = new Intent(MainActivity.this, ViewLogs.class);
+				startActivity(i);
+			}
+		});
 		// Link to Register Screen
 		btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
 
