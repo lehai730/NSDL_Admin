@@ -44,7 +44,8 @@
         <!-- Service for handling communication with NFC terminal. -->
         <!-- END_INCLUDE(CardEmulationManifest) -->
         <activity android:name=".activity.ViewDoorUsers" />
-        <activity android:name=".activity.ViewLogs"></activity>
+        <activity android:name=".activity.ViewLogs" />
+        <activity android:name=".activity.EditUsers"></activity>
     </application>
 
 </manifest>

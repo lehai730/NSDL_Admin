@@ -18,4 +18,10 @@ public class AppConfig {
 
 	// Server to clear Logs
 	public static String URL_CLEAR_LOGS = "http://192.168.1.120/admin_login_api/clearLogs.php";
+
+	// Server to delete Users
+	public static String URL_DELETE_USERS = "http://192.168.1.120/admin_login_api/deleteUsers.php";
+
+	// Server to update Users
+	public static String URL_UPDATE_USERS = "http://192.168.1.120/admin_login_api/updateUsers.php";
 }

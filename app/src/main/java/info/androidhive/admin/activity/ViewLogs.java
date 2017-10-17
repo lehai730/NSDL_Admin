@@ -1,5 +1,8 @@
 package info.androidhive.admin.activity;
 
+import android.content.DialogInterface;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import java.util.ArrayList;
@@ -53,6 +56,9 @@ public class ViewLogs extends ListActivity {
     //Button to clear logs
     private Button btnClearLogs;
 
+    //Swipe refresh
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,18 +66,44 @@ public class ViewLogs extends ListActivity {
 
         //declear button
         btnClearLogs = (Button) findViewById(R.id.btnClearlogs);
+
+        //declare swipe refresh
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_logs_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new LoadLogs().execute();
+            }
+        });
+
         // Register Button Click event
         btnClearLogs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                clearLog();
+
+                new AlertDialog.Builder( ViewLogs.this )
+                        .setTitle( "This will delete all the Logs" )
+                        .setMessage("Are you sure you want to delete ALL the logs")
+                        .setPositiveButton( "YES", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //start background task to delete users
+                                clearLog();
+                                Log.d( "AlertDialog", "Positive" );
+                            }
+                        })
+                        .setNegativeButton( "NO", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.d( "AlertDialog", "Negative" );
+                            }
+                        } )
+                        .show();
+
+
             }
         });
         // Hashmap for ListView
         logsList = new ArrayList<HashMap<String, String>>();
         // Loading products in Background Thread
-        new LoadAllProducts().execute();
-        // Get listview
-        ListView lv = getListView();
+        new LoadLogs().execute();
 
     }
 
@@ -144,7 +176,7 @@ public class ViewLogs extends ListActivity {
     /**
      * Background Async Task to Load all product by making HTTP Request
      * */
-    class LoadAllProducts extends AsyncTask<String, String, String> {
+    class LoadLogs extends AsyncTask<String, String, String> {
 
         /**
          * Before starting background thread Show Progress Dialog
@@ -179,7 +211,7 @@ public class ViewLogs extends ListActivity {
                     // products found
                     // Getting Array of Products
                     Logs = json.getJSONArray("Logs");
-
+                    logsList.clear();
                     // looping through All Products
                     for (int i = 0; i < Logs.length(); i++) {
                         JSONObject c = Logs.getJSONObject(i);
@@ -222,6 +254,8 @@ public class ViewLogs extends ListActivity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
+            //dismiss swipe refresh
+            swipeRefreshLayout.setRefreshing(false);
             // updating UI from Background Thread
             runOnUiThread(new Runnable() {
                 public void run() {

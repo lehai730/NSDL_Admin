@@ -3,40 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/lib/info.androidhive.loginandregistration"
     xmlns:app2="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="#FFA31E"
-    android:gravity="bottom"
     android:orientation="vertical"
-    android:padding="10dp"
-    android:weightSum="1">
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.32"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:weightSum="1">
+        android:paddingRight="20dp">
 
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="242dp"
-            android:src="@drawable/nsdl" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="ADMIN EDITION"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="bold" />
+            android:layout_weight="60"
+            android:src="@drawable/nsdl_admin" />
 
         <EditText
             android:id="@+id/email"
@@ -44,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@color/white"
-            android:hint="@string/hint_email"
+            android:hint="@string/hint_name"
             android:inputType="textPersonName"
             android:padding="10dp"
             android:singleLine="true"
@@ -60,7 +47,6 @@
             android:hint="@string/hint_password"
             android:inputType="textPassword"
             android:padding="10dp"
-            android:singleLine="true"
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
 

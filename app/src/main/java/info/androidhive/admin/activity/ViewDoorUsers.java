@@ -1,5 +1,6 @@
 package info.androidhive.admin.activity;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -41,6 +43,11 @@ public class ViewDoorUsers extends ListActivity {
     // products JSONArray
     JSONArray doorusers = null;
 
+    //Swipe refresh
+    private SwipeRefreshLayout swipeRefreshLayout;
+
+    ListAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +59,56 @@ public class ViewDoorUsers extends ListActivity {
         new LoadAllProducts().execute();
         // Get listview
         ListView lv = getListView();
+
+        //declare swipe refresh
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new LoadAllProducts().execute();
+            }
+        });
+
+
+        //on selecting single user
+        //launching Edit User Screen
+        lv.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // getting values from selected ListItem
+                String pid = ((TextView) view.findViewById(R.id.pid)).getText().toString();
+                String name = ((TextView) view.findViewById(R.id.name)).getText().toString();
+                String email = ((TextView) view.findViewById(R.id.email)).getText().toString();
+
+                // Starting new intent
+                Intent in = new Intent(getApplicationContext(), EditUsers.class);
+                // sending pid to next activity
+                in.putExtra("id", pid);
+                in.putExtra("name",name);
+                in.putExtra("email",email);
+
+                // starting new activity and expecting some response back
+                startActivityForResult(in, 100);
+            }
+        });
+
+    }
+
+    // Response from Edit Product Activity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // if result code 100
+        if (resultCode == 100) {
+            // if result code 100 is received
+            // means user edited/deleted product
+            // reload this screen again
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
 
     }
 
@@ -95,7 +152,7 @@ public class ViewDoorUsers extends ListActivity {
                     // products found
                     // Getting Array of Products
                     doorusers = json.getJSONArray("doorUsers");
-
+                    doorUserList.clear();
                     // looping through All Products
                     for (int i = 0; i < doorusers.length(); i++) {
                         JSONObject c = doorusers.getJSONObject(i);
@@ -144,13 +201,15 @@ public class ViewDoorUsers extends ListActivity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
+            //dismiss swipe refresh
+            swipeRefreshLayout.setRefreshing(false);
             // updating UI from Background Thread
             runOnUiThread(new Runnable() {
                 public void run() {
                     /**
                      * Updating parsed JSON data into ListView
                      * */
-                    ListAdapter adapter = new SimpleAdapter(
+                     adapter = new SimpleAdapter(
                             ViewDoorUsers.this, doorUserList,
                             R.layout.list_door_users, new String[] { "id",
                             "name","email", "last_login"},
